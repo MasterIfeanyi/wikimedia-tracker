@@ -9,7 +9,7 @@ export const metadata = {
     description: "A tracker of my open-source contributions across Wikimedia projects like Wikinewsie and WikiEduDashboard.",
     images: [
       {
-        url: "https://ifeanyi-wikimedia.netlify.app/wikimedia-og.png/wikimedia-og.png",
+        url: "https://ifeanyi-wikimedia.netlify.app/wikimedia-og.png/",
         width: 800,
         height: 600,
       },
