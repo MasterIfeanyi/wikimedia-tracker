@@ -13,6 +13,7 @@
     "@wikimedia/codex-design-tokens": "^2.7.0",
     "@wikimedia/codex-icons": "^2.7.0",
     "bcryptjs": "^3.0.3",
+    "jose": "^6.2.12",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.10.2",
     "next": "16.3.6",

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { verifyToken } from "@/lib/auth";
 
-export function middleware(request) {
+export async function middleware(request) {
   const isApiRoute = request.nextUrl.pathname.startsWith("/api/prs");
 
   // allow GET requests for public facing side
@@ -10,8 +10,9 @@ export function middleware(request) {
   }
 
   const token = request.cookies.get("token")?.value;
+  const verified = token ? await verifyToken(token) : null;
 
-  if (!token || !verifyToken(token)) {
+  if (!verified) {
     // return 401 status code for postman
     if (isApiRoute) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
