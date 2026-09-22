@@ -5,10 +5,6 @@ import { usePrs } from "@/hooks/usePRs";
 export default function HomePage() {
   const { data: prs = [], isLoading } = usePrs();
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
   const groupedByRepo = prs.reduce((groups, pr) => {
     const tag = pr.repoTag;
     if (!groups[tag]) {
@@ -21,6 +17,8 @@ export default function HomePage() {
   return (
     <section className="container">
       <h1>Wikimedia contributions</h1>
+
+      {isLoading && <p>Loading...</p>}
 
       {Object.keys(groupedByRepo).map((repoTag) => (
         <div key={repoTag}>

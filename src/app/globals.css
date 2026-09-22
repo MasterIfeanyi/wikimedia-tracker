@@ -124,3 +124,8 @@ label {
 .pr-row-actions button {
   font-size: var(--font-size-small);
 }
+
+.centralise {
+  max-width: 100%;
+  place-self: center;
+}
