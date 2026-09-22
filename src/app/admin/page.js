@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { usePrs, useCreatePr, useUpdatePr } from "@/hooks/usePRs";
+import { usePrs, useCreatePr, useUpdatePr, useDeletePr } from "@/hooks/usePRs";
+import Link from "next/link";
 
 export default function AdminPage() {
   const [title, setTitle] = useState("");
@@ -18,6 +19,7 @@ export default function AdminPage() {
   const { data: prs = [], isLoading } = usePrs();
   const createPr = useCreatePr();
   const updatePr = useUpdatePr();
+  const deletePr = useDeletePr();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -65,38 +67,39 @@ export default function AdminPage() {
   }
 
   return (
-    <div>
+    <section className="container">
       <h1>Admin</h1>
+      <Link href="/">← Back to public page</Link>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Title</label>
-          <input value={title} onChange={(e) => setTitle(e.target.value)} />
-        </div>
-        <div>
-          <label>Description</label>
-          <input
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Link</label>
-          <input value={link} onChange={(e) => setLink(e.target.value)} />
-        </div>
-        <div>
-          <label>Repo Tag</label>
-          <input
-            value={repoTag}
-            onChange={(e) => setRepoTag(e.target.value)}
-          />
-        </div>
-        <button type="submit" disabled={createPr.isPending}>
-          {createPr.isPending ? "Adding..." : "Add PR"}
-        </button>
-      </form>
-
-      <hr />
+      <div className="card" style={{marginTop: '10px'}}>
+        <form onSubmit={handleSubmit}>
+            <div>
+            <label>Title</label>
+            <input value={title} onChange={(e) => setTitle(e.target.value)} />
+            </div>
+            <div>
+                <label>Description</label>
+                <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                />
+            </div>
+            <div>
+            <label>Link</label>
+            <input value={link} onChange={(e) => setLink(e.target.value)} />
+            </div>
+            <div>
+            <label>Repo Tag</label>
+            <input
+                value={repoTag}
+                onChange={(e) => setRepoTag(e.target.value)}
+            />
+            </div>
+            <button type="submit" disabled={createPr.isPending}>
+            {createPr.isPending ? "Adding..." : "Add PR"}
+            </button>
+        </form>
+      </div>
 
       <h2>All PRs</h2>
       {isLoading && <p>Loading...</p>}
@@ -128,14 +131,21 @@ export default function AdminPage() {
             </button>
           </form>
         ) : (
-          <div key={pr._id}>
-            <strong>{pr.title}</strong> ({pr.repoTag})
-            <p>{pr.description}</p>
-            <a href={pr.link}>{pr.link}</a>
-            <button onClick={() => startEditing(pr)}>Edit</button>
-          </div>
+            <div key={pr._id} className="pr-row">
+                <div className="pr-row-header">
+                    <div>
+                        <strong className="pr-title">{pr.title}</strong>
+                    </div>
+                    <div className="pr-row-actions">
+                        <button onClick={() => startEditing(pr)}>Edit</button>
+                        <button onClick={() => deletePr.mutate(pr._id)}>Delete</button>
+                    </div>
+                </div>
+                <p>{pr.description}</p>
+                <a href={pr.link}>{pr.link}</a>
+            </div>
         )
       )}
-    </div>
+    </section>
   );
 }

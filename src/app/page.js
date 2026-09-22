@@ -19,8 +19,8 @@ export default function HomePage() {
   }, {});
 
   return (
-    <div>
-      <h1>My Wikimedia Open-Source Work</h1>
+    <section className="container">
+      <h1>Wikimedia contributions</h1>
 
       {Object.keys(groupedByRepo).map((repoTag) => (
         <div key={repoTag}>
@@ -34,6 +34,6 @@ export default function HomePage() {
           ))}
         </div>
       ))}
-    </div>
+    </section>
   );
 }
