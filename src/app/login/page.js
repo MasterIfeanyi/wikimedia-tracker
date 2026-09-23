@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-    
+
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -29,7 +29,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div>
+    <section className="container">
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -51,6 +51,6 @@ export default function LoginPage() {
         {error && <p>{error}</p>}
         <button type="submit">Log in</button>
       </form>
-    </div>
+    </section>
   );
 }
