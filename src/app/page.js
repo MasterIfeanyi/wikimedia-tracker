@@ -28,6 +28,7 @@ export default function HomePage() {
               <strong>{pr.title}</strong>
               <p>{pr.description}</p>
               <a href={pr.link}>{pr.link}</a>
+              <hr />
             </div>
           ))}
         </div>
